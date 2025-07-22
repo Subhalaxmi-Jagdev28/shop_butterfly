@@ -1,4 +1,4 @@
-name: Deploy Shop Butterfly
+name: "Deploy Shop Butterfly"
 
 on:
   push:
@@ -16,14 +16,14 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16'
+        node-version: '20'
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
 
-    - name: Install frontend dependencies
+    - name: Install frontend dependencies and build
       working-directory: ./frontend
       run: |
         npm install
@@ -35,5 +35,9 @@ jobs:
         pip install pipenv
         pipenv install
 
+    - name: Trigger Render Deploy
+      run: |
+        curl -X POST https://github.com/Subhalaxmi-Jagdev28/shop_butterfly
+
     - name: Done
-      run: echo "Shop Butterfly build complete!"
+      run: echo "Shop Butterfly build and deploy complete!"
